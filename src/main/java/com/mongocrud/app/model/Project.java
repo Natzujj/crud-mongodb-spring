@@ -2,6 +2,7 @@ package com.mongocrud.app.model;
 
 import java.util.List;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "projects")
@@ -11,6 +12,7 @@ public class Project {
     private String name;
     private String description;
 
+    @DBRef
     private List<User> users;
 
     public String getId() {

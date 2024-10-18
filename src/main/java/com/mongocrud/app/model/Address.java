@@ -1,6 +1,7 @@
 package com.mongocrud.app.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "addresses")
@@ -12,6 +13,7 @@ public class Address {
     private String street;
     private String state;
 
+    @DBRef
     private User user;
 
     public String getId() {

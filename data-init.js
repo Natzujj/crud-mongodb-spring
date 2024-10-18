@@ -1,59 +1,51 @@
-// Selecionando o banco de dados
-use crud-spring-mongo;
-
-// Inserindo usuários
 db.users.insertMany([
-  {
-    _id: ObjectId(),
-    name: "Gabriel Souza",
-    email: "gabriel@example.com",
-    address: [],
-    projects: []
-  },
-  {
-    _id: ObjectId(),
-    name: "Maria Oliveira",
-    email: "maria@example.com",
-    address: [],
-    projects: []
-  }
+    {
+        _id: "user1",
+        name: "Alex Brieff",
+        email: "alexb@example.com"
+    },
+    {
+        _id: "user2",
+        name: "Maria Silva",
+        email: "marias@example.com"
+    }
 ]);
 
-// Inserindo endereços
 db.addresses.insertMany([
-  {
-    _id: ObjectId(),
-    street: "street A",
-    city: "city X",
-    state: "state Y",
-    user: db.users.findOne({ name: "Gabriel Souza" })._id
-  },
-  {
-    _id: ObjectId(),
-    street: "street B",
-    city: "city Y",
-    state: "state Z",
-    user: db.users.findOne({ name: "Maria Oliveira" })._id
-  }
+    {
+        _id: "address1",
+        city: "Cidade X",
+        street: "Rua A",
+        state: "Estado Y",
+        user: { $ref: "users", $id: "user1" }
+    },
+    {
+        _id: "address2",
+        city: "Cidade Y",
+        street: "Rua B",
+        state: "Estado Z",
+        user: { $ref: "users", $id: "user1" }
+    },
+    {
+        _id: "address3",
+        city: "Cidade Z",
+        street: "Rua C",
+        state: "Estado W",
+        user: { $ref: "users", $id: "user2" }
+    }
 ]);
 
-// Inserindo projetos
 db.projects.insertMany([
-  {
-    _id: ObjectId(),
-    name: "Projeto Alpha",
-    description: "Primeiro projeto de exemplo",
-    users: [
-      db.users.findOne({ name: "Gabriel Souza" })._id,
-      db.users.findOne({ name: "Maria Oliveira" })._id
-    ]
-  },
-  {
-    _id: ObjectId(),
-    name: "Projeto Beta",
-    description: "Segundo projeto de exemplo",
-    users: [
-      db.users.findOne({ name: "Gabriel Souza" })._id
-    ]
-  }
+    {
+        _id: "project1",
+        name: "Projeto Alpha",
+        description: "Primeiro projeto de exemplo",
+        users: [{ $ref: "users", $id: "user1" }, { $ref: "users", $id: "user2" }]
+    },
+    {
+        _id: "project2",
+        name: "Projeto Beta",
+        description: "Segundo projeto de exemplo",
+        users: [{ $ref: "users", $id: "user1" }]
+    }
 ]);
