@@ -1,6 +1,9 @@
 package com.mongocrud.app.model;
 
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
@@ -10,6 +13,12 @@ public class User {
     private String id;
     private String name;
     private String email;
+
+    @DBRef // One-to-Many
+    private List<Address> addresses;
+
+    @DBRef // Many-to-Many
+    private List<Project> projects;
 
     public String getId() {
         return id;
@@ -31,6 +40,20 @@ public class User {
         this.email = email;
     }
 
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -66,5 +89,5 @@ public class User {
             return false;
         return true;
     }
-        
+
 }
